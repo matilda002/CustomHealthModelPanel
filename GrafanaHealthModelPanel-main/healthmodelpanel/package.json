@@ -1,8 +1,8 @@
 {
-  "name": "@nielsams/grafana-healthmodelpanel",
+  "name": "@matilda002/grafana-healthmodelpanel",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nielsams/grafanahealthmodelpanel.git"
+    "url": "https://github.com/matilda002/CustomHealthModelPanel"
   },
   "version": "1.0.0",
   "description": "Grafana Health Model panel",
@@ -14,20 +14,23 @@
     "sign": "grafana-toolkit plugin:sign",
     "start": "yarn watch"
   },
-  "author": "nielsb@microsoft.com",
+  "author": "matilda.olsson.extern@skanetrafiken.se",
   "license": "MIT",
   "devDependencies": {
-    "@grafana/data": "^8.3.6",
-    "@grafana/toolkit": "^8.3.6",
-    "@grafana/ui": "^8.3.6"
+    "@grafana/data": "^11.3.0",
+    "@grafana/toolkit": "^10.1.10",
+    "@grafana/ui": "^11.3.0",
+    "eslint": "^9.14.0"
   },
   "engines": {
     "node": ">=14"
   },
   "dependencies": {
     "@emotion/css": "^11.7.1",
-    "@types/react-cytoscapejs": "^1.2.2",
-    "react-cytoscapejs": "^1.2.1"
+    "@types/react-cytoscapejs": "^1.2.5",
+    "cytoscape": "^3.22.0",
+    "react-cytoscapejs": "^2.0.0",
+    "react-dom": "^18.3.1"
   },
   "resolutions": {
     "minimist": "^1.2.5",
