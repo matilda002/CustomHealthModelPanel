@@ -42,35 +42,50 @@ export class HealthModelGraphComponent extends React.Component<GraphOptions, Gra
     return { graphElements: HealthModelGraphComponent.loadGraphFromData(props.data) };
   }
 
-  static loadGraphFromData(data: DataFrameView): cytoscape.ElementDefinition[] {
-    // Turns a Grafana DataFrameView into a cytoscape ElementDefinition[] that can be used to visualize the graph.
-    // Nodes are populated for each 'ComponentName', edges are added for each dependency a component has listed.
-    const result: cytoscape.ElementDefinition[] = [];
-    data.map((item: HealthModelNode) => {
-      const node = {
-        data: {
-          id: item.ComponentName.toLowerCase(),
-          label: item.ComponentName,
-          score: item.HealthScore,
-        },
-      };
-      result.push(node);
+    static loadGraphFromData(data: DataFrameView): cytoscape.ElementDefinition[] {
+        // Turns a Grafana DataFrameView into a cytoscape ElementDefinition[] that can be used to visualize the graph.
+        // Nodes are populated for each 'ComponentName', edges are added for each dependency a component has listed.
+        const result: cytoscape.ElementDefinition[] = [];
 
-      if (item.Dependencies !== '') {
-        item.Dependencies.split(',').forEach((dep) => {
-          const edge = {
-            data: {
-              source: item.ComponentName.toLowerCase(),
-              target: dep.toLowerCase(),
-            },
-          };
-          result.push(edge);
+        // gather all ids for comparison later on 
+        const nodeDataIds = data.map((item) => item.ComponentName.toLowerCase());
+
+        data.foreach((item: HealthModelNode) => {
+            const nodeId = item.ComponentName.toLowerCase();
+
+            const node = {
+                data: {
+                    id: nodeId,
+                    label: item.ComponentName,
+                    score: item.HealthScore
+                },
+            };
+            result.push(node);
+
+            if (item.Dependencies !== '') {
+                item.Dependencies.split(',').forEach((dep) => {
+                    const targetId = dep.toLowerCase();
+                    
+                    if (nodeDataIds.includes(nodeId) && nodeDataIds.includes(targetId)) {
+
+                        const edge = {
+                            data: {
+                                source: nodeId,
+                                target: targetId
+                            },
+
+                        };
+                        result.push(edge);
+                    }
+                    else {
+                        // log out error message
+                    }
+
+                });
+            }
         });
-      }
-    });
-
-    return result;
-  }
+        return result;
+    }
 
   render() {
     const getFillColor = (score: number) => {
