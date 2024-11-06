@@ -1,7 +1,9 @@
 import { DataFrameView } from '@grafana/data';
-import { GrafanaTheme } from '@grafana/data/types/theme';
-import React from 'react';
+import { useTheme } from '@grafana/ui';
+import * as React from 'react';
 import CytoscapeComponent from 'react-cytoscapejs';
+
+const GrafanaTheme = useTheme();
 
 interface GraphOptions {
   data: DataFrameView;
@@ -9,7 +11,7 @@ interface GraphOptions {
   redThreshold: number;
   width: number;
   height: number;
-  theme: GrafanaTheme;
+  theme: typeof GrafanaTheme;
 }
 
 interface HealthModelNode {
@@ -50,7 +52,7 @@ export class HealthModelGraphComponent extends React.Component<GraphOptions, Gra
         // gather all ids for comparison later on 
         const nodeDataIds = data.map((item) => item.ComponentName.toLowerCase());
 
-        data.foreach((item: HealthModelNode) => {
+        data.forEach((item: HealthModelNode) => {
             const nodeId = item.ComponentName.toLowerCase();
 
             const node = {
