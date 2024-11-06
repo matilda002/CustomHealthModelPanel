@@ -78,7 +78,7 @@ export class HealthModelGraphComponent extends React.Component<GraphOptions, Gra
                         result.push(edge);
                     }
                     else {
-                        // log out error message
+                        console.error(`Cannot draw out edge from "${item.ComponentName}" to "${dep}" since one or both of the dependencies doesn't exist`)
                     }
 
                 });
