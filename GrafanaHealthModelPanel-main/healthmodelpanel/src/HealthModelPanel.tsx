@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { PanelProps, DataFrameView } from '@grafana/data';
 import { HealthModelPanelOptions } from 'types';
 import { stylesFactory, useTheme } from '@grafana/ui';
